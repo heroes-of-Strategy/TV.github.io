@@ -36,7 +36,7 @@
     
     <script>
         const images = [
-/*            "https://graphical.weather.gov/images/conus/Wx1_conus.png",
+            "https://graphical.weather.gov/images/conus/Wx1_conus.png",
             "https://graphical.weather.gov/images/conus/Wx3_conus.png",
             "https://graphical.weather.gov/images/conus/Wx5_conus.png",
             "https://graphical.weather.gov/images/conus/Wx7_conus.png",
@@ -48,7 +48,7 @@
             "https://graphical.weather.gov/images/conus/Wx19_conus.png",
             "https://graphical.weather.gov/images/conus/Wx21_conus.png",
             "https://graphical.weather.gov/images/conus/Wx23_conus.png",
-            "https://graphical.weather.gov/images/conus/Wx25_conus.png",*/
+            "https://graphical.weather.gov/images/conus/Wx25_conus.png",
             "https://raw.githubusercontent.com/heroes-of-Strategy/TV.github.io/refs/heads/main/FullHD-1920x1080.png",   
      
         ];
@@ -61,8 +61,69 @@
             currentIndex = (currentIndex + 1) % images.length; // Loop back to start
         }
         // Change the image every 30 seconds (30000 milliseconds)
-        setInterval(changeImage, 3000);
+        setInterval(changeImage, 30000);
     </script>
 
 </body>
+
+
+
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottom Positioned Loading Bar</title>
+    <style>
+        .loading-container {
+            position: fixed; /* Fixes the container to a specific position */
+            bottom: 0; /* Aligns it to the bottom of the page */
+            left: 0; /* Stretches it to the left edge */
+            width: 100%; /* Stretches it across the width of the viewport */
+            background-color: #e0e0e0;
+            height: 5px;
+            
+            overflow: hidden;
+        }
+        
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loading-bar" id="loadingBar"></div>
+    </div>
+
+    <script>
+        const colors = ["red", "blue", "green", "orange", "purple"];
+        let colorIndex = 0;
+
+        function loadBar() {
+            const bar = document.getElementById("loadingBar");
+            
+            // Reset width to 0% and change the color
+            bar.style.transition = 'none'; // Disable transition for instant reset
+            bar.style.width = '0%';
+            colorIndex = (colorIndex + 1) % colors.length;
+            bar.style.backgroundColor = colors[colorIndex];
+            
+            // Trigger reflow to reset the transition
+            void bar.offsetWidth; 
+
+            // Set transition and width to animate to 100% over 10 seconds
+            bar.style.transition = 'width 30s ease';
+            bar.style.width = '100%';
+        }
+
+        // Start the animation and repeat after each transition
+        document.getElementById("loadingBar").addEventListener("transitionend", loadBar);
+        loadBar(); // Start the loading bar initially
+    </script>
+</body>
+
+
+
+	
 </html>
